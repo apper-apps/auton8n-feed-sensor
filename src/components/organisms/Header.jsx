@@ -1,48 +1,147 @@
-import React, { useState } from "react"
-import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
-import Button from "@/components/atoms/Button"
-import ApperIcon from "@/components/ApperIcon"
+import React from "react";
+import { motion } from "framer-motion";
+import { AlertCircle, LogOut, Wallet, Zap } from "lucide-react";
+import { useWallet } from "@/hooks/useWallet";
+import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import Error from "@/components/ui/Error";
+import Button from "@/components/atoms/Button";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const {
+    isConnected,
+    account,
+    isConnecting,
+    error,
+    connect,
+    disconnect,
+    formattedAccount,
+    networkName,
+    formattedBalance,
+    isMetaMaskInstalled
+  } = useWallet();
 
-  const navItems = [
-    { name: "Templates", href: "#templates" },
-    { name: "How it Works", href: "#how-it-works" },
-    { name: "Examples", href: "#examples" }
-  ]
+  const handleConnect = async () => {
+    if (!isMetaMaskInstalled()) {
+      toast.error('MetaMask is not installed. Please install MetaMask to continue.');
+      window.open('https://metamask.io/download/', '_blank');
+      return;
+    }
+
+    await connect();
+  };
+
+  const handleDisconnect = () => {
+    disconnect();
+  };
+
+  const WalletButton = () => {
+    if (!isMetaMaskInstalled()) {
+      return (
+        <Button
+          onClick={handleConnect}
+          className="bg-error/20 hover:bg-error/30 text-error border-error/50"
+        >
+          <AlertCircle className="h-4 w-4 mr-2" />
+          Install MetaMask
+        </Button>
+      );
+    }
+
+    if (isConnecting) {
+      return (
+        <Button disabled className="bg-primary/20 text-primary border-primary/50">
+          <div className="animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent mr-2" />
+          Connecting...
+        </Button>
+      );
+    }
+
+    if (isConnected && account) {
+      return (
+        <div className="flex items-center space-x-3">
+          <div className="hidden sm:block text-right">
+            <p className="text-sm text-gray-300">{formattedAccount}</p>
+            <p className="text-xs text-gray-500">{networkName}</p>
+            <p className="text-xs text-primary">{formattedBalance} ETH</p>
+          </div>
+          <Button
+            onClick={handleDisconnect}
+            className="bg-secondary/20 hover:bg-secondary/30 text-secondary border-secondary/50"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Disconnect</span>
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <Button
+        onClick={handleConnect}
+        className="bg-primary/20 hover:bg-primary/30 text-primary border-primary/50 hover:glow-primary"
+      >
+        <Wallet className="h-4 w-4 mr-2" />
+        Connect Wallet
+      </Button>
+    );
+  };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/10"
+    <motion.header 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-primary/20"
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="text-2xl font-black font-space bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"
-            >
-              Auton8n
-            </motion.div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-white/80 hover:text-white transition-colors duration-300 relative group"
-              >
-                {item.name}
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-primary to-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <Zap className="h-8 w-8 text-primary animate-pulse-glow" />
+              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+Auton8n
+              </h1>
+              <p className="text-xs text-gray-400">AI Workflow Automation</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-6">
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-300 hover:text-primary transition-colors">
+                Features
               </a>
+              <a href="#templates" className="text-gray-300 hover:text-primary transition-colors">
+                Templates
+              </a>
+              <a href="#pricing" className="text-gray-300 hover:text-primary transition-colors">
+                Pricing
+              </a>
+            </nav>
+            
+            <WalletButton />
+          </div>
+          
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute top-full left-0 right-0 bg-error/10 border-b border-error/20 p-2"
+            >
+              <p className="text-center text-sm text-error">
+                Wallet Error: {error}
+              </p>
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </motion.header>
+  );
+};
+
+export default Header;
             ))}
           </div>
 
@@ -97,5 +196,3 @@ const Header = () => {
     </motion.header>
   )
 }
-
-export default Header
