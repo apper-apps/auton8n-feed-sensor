@@ -1,0 +1,40 @@
+[
+  {
+    "id": "workflow_1",
+    "name": "Sample Slack Notification Workflow",
+    "description": "Sends Slack notifications for form submissions",
+    "nodes": [
+      {
+        "id": "node_1",
+        "name": "Webhook Trigger",
+        "type": "webhook",
+        "position": { "x": 100, "y": 100 },
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "/contact-form"
+        },
+        "connections": [{ "node": "node_2", "type": "main", "index": 0 }]
+      },
+      {
+        "id": "node_2",
+        "name": "Send Slack Message",
+        "type": "slack",
+        "position": { "x": 400, "y": 100 },
+        "parameters": {
+          "channel": "#leads",
+          "text": "New contact form submission from {{$json.name}} ({{$json.email}}): {{$json.message}}"
+        },
+        "connections": []
+      }
+    ],
+    "connections": [
+      {
+        "source": "node_1",
+        "target": "node_2",
+        "type": "main"
+      }
+    ],
+    "createdAt": "2024-01-15T10:30:00Z",
+    "version": "1.0.0"
+  }
+]

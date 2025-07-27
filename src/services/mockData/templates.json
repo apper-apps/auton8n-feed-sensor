@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 1,
+    "name": "Slack Notification for Form Submissions",
+    "description": "Get instant Slack notifications when someone submits a contact form on your website. Perfect for sales teams who need immediate lead alerts.",
+    "category": "communication",
+    "basePrompt": "Send a Slack message to #leads channel when a new contact form is submitted on my website with the person's name, email, and message",
+    "thumbnail": "/templates/slack-form.png"
+  },
+  {
+    "Id": 2,
+    "name": "Gmail to Google Drive Backup",
+    "description": "Automatically save Gmail attachments to Google Drive and organize them by date. Never lose important files again.",
+    "category": "productivity",
+    "basePrompt": "Save Gmail attachments to Google Drive in a folder organized by date and sender, then mark the email as processed",
+    "thumbnail": "/templates/gmail-drive.png"
+  },
+  {
+    "Id": 3,
+    "name": "Social Media Cross-Posting",
+    "description": "Post your content across Twitter, LinkedIn, and Facebook simultaneously. Save time on social media management.",
+    "category": "marketing",
+    "basePrompt": "When I publish a new blog post, automatically share it on Twitter with hashtags, LinkedIn with professional formatting, and Facebook with engaging text",
+    "thumbnail": "/templates/social-cross-post.png"
+  },
+  {
+    "Id": 4,
+    "name": "GitHub Issue to Discord",
+    "description": "Keep your development team informed by sending Discord notifications for new GitHub issues and pull requests.",
+    "category": "development",
+    "basePrompt": "Send a Discord message to #dev-alerts channel when a new GitHub issue is created or when a pull request is opened, including issue details and labels",
+    "thumbnail": "/templates/github-discord.png"
+  },
+  {
+    "Id": 5,
+    "name": "Calendar Event from Trello Cards",
+    "description": "Automatically create Google Calendar events when Trello cards are moved to specific lists with due dates.",
+    "category": "productivity",
+    "basePrompt": "When a Trello card is moved to 'In Progress' list and has a due date, create a Google Calendar event with the card name and description",
+    "thumbnail": "/templates/trello-calendar.png"
+  },
+  {
+    "Id": 6,
+    "name": "Twitter Mentions to Spreadsheet",
+    "description": "Track brand mentions by automatically saving Twitter mentions and replies to a Google Sheets spreadsheet for analysis.",
+    "category": "social",
+    "basePrompt": "Save all Twitter mentions of my brand username to a Google Sheets spreadsheet with tweet content, author, date, and engagement metrics",
+    "thumbnail": "/templates/twitter-sheets.png"
+  },
+  {
+    "Id": 7,
+    "name": "Customer Support Ticket Routing",
+    "description": "Automatically route support tickets to the right team members based on priority level and category.",
+    "category": "communication",
+    "basePrompt": "When a support ticket is created in Zendesk, analyze the priority and category, then assign it to the appropriate team member and send them a Slack notification",
+    "thumbnail": "/templates/support-routing.png"
+  },
+  {
+    "Id": 8,
+    "name": "E-commerce Order Processing",
+    "description": "Streamline order fulfillment by automatically creating shipment labels and sending customer notifications.",
+    "category": "productivity",
+    "basePrompt": "When a new order is placed in Shopify, create a shipping label, update inventory, and send a confirmation email to the customer with tracking information",
+    "thumbnail": "/templates/ecommerce-orders.png"
+  },
+  {
+    "Id": 9,
+    "name": "Lead Scoring and CRM Update",
+    "description": "Automatically score leads based on their actions and update your CRM with enriched contact information.",
+    "category": "marketing",
+    "basePrompt": "When someone downloads a whitepaper from my website, score them based on their company size and role, then add them to my CRM with enriched data from Clearbit",
+    "thumbnail": "/templates/lead-scoring.png"
+  },
+  {
+    "Id": 10,
+    "name": "Code Deployment Notifications",
+    "description": "Keep stakeholders informed about deployments with automated notifications across multiple channels.",
+    "category": "development",
+    "basePrompt": "When code is deployed to production via GitHub Actions, send notifications to Slack with deployment details and send an email summary to stakeholders",
+    "thumbnail": "/templates/deployment-notify.png"
+  },
+  {
+    "Id": 11,
+    "name": "Invoice Generation and Tracking",
+    "description": "Automatically generate invoices when projects are completed and track payment status across systems.",
+    "category": "finance",
+    "basePrompt": "When a project is marked as complete in Asana, generate an invoice in QuickBooks, email it to the client, and create a follow-up reminder in 30 days",
+    "thumbnail": "/templates/invoice-tracking.png"
+  },
+  {
+    "Id": 12,
+    "name": "Content Publishing Pipeline",
+    "description": "Streamline content publishing by automatically formatting and distributing content across multiple platforms.",
+    "category": "marketing",
+    "basePrompt": "When a blog post is published in WordPress, automatically create social media posts with appropriate formatting for Twitter, LinkedIn, and Instagram, then schedule them for optimal times",
+    "thumbnail": "/templates/content-pipeline.png"
+  }
+]
