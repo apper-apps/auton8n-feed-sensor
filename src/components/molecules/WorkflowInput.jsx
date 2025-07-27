@@ -2,8 +2,7 @@ import React, { useState } from "react"
 import { motion } from "framer-motion"
 import Textarea from "@/components/atoms/Textarea"
 import Button from "@/components/atoms/Button"
-import ApperIcon from "@@/components/ApperIcon"
-
+import ApperIcon from "@/components/ApperIcon"
 const WorkflowInput = ({ onGenerate, isGenerating }) => {
   const [description, setDescription] = useState("")
   const [charCount, setCharCount] = useState(0)
