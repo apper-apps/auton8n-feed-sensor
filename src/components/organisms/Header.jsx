@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, LogOut, Wallet, Zap } from "lucide-react";
 import { useWallet } from "@/hooks/useWallet";
@@ -8,6 +8,8 @@ import Error from "@/components/ui/Error";
 import Button from "@/components/atoms/Button";
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   const {
     isConnected,
     account,
@@ -20,6 +22,13 @@ const Header = () => {
     formattedBalance,
     isMetaMaskInstalled
   } = useWallet();
+
+  const navItems = [
+    { name: 'Features', href: '#features' },
+    { name: 'Templates', href: '#templates' },
+    { name: 'Pricing', href: '#pricing' },
+    { name: 'About', href: '#about' }
+  ];
 
   const handleConnect = async () => {
     if (!isMetaMaskInstalled()) {
@@ -93,8 +102,9 @@ const Header = () => {
       animate={{ opacity: 1, y: 0 }}
       className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-primary/20"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="relative">
               <Zap className="h-8 w-8 text-primary animate-pulse-glow" />
@@ -102,46 +112,22 @@ const Header = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-Auton8n
+                Auton8n
               </h1>
               <p className="text-xs text-gray-400">AI Workflow Automation</p>
             </div>
           </div>
           
-          <div className="flex items-center space-x-6">
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-300 hover:text-primary transition-colors">
-                Features
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-white/80 hover:text-white transition-colors duration-300"
+              >
+                {item.name}
               </a>
-              <a href="#templates" className="text-gray-300 hover:text-primary transition-colors">
-                Templates
-              </a>
-              <a href="#pricing" className="text-gray-300 hover:text-primary transition-colors">
-                Pricing
-              </a>
-            </nav>
-            
-            <WalletButton />
-          </div>
-          
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute top-full left-0 right-0 bg-error/10 border-b border-error/20 p-2"
-            >
-              <p className="text-center text-sm text-error">
-                Wallet Error: {error}
-              </p>
-            </motion.div>
-          )}
-        </div>
-      </div>
-    </motion.header>
-  );
-};
-
-export default Header;
             ))}
           </div>
 
@@ -192,7 +178,26 @@ export default Header;
             </div>
           </motion.div>
         )}
+
+        {/* Wallet Section */}
+        <div className="flex items-center space-x-6 mt-4 md:mt-0">
+          <WalletButton />
+        </div>
+        
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-full left-0 right-0 bg-error/10 border-b border-error/20 p-2"
+          >
+            <p className="text-center text-sm text-error">
+              Wallet Error: {error}
+            </p>
+          </motion.div>
+        )}
       </nav>
     </motion.header>
-  )
-}
+  );
+};
+
+export default Header;
